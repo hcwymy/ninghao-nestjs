@@ -1,4 +1,5 @@
-import { Controller, Get, Req, Query, Headers, Param, Body } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Body, Post } from '@nestjs/common';
+import { CreatePostDto } from './post.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -21,7 +22,7 @@ export class PostsController {
     }
 
     @Post()
-    Store(@Body() body){
-        console.log(body)
+    Store(@Body() post: CreatePostDto){
+        console.log(post.title)
     }
 }
