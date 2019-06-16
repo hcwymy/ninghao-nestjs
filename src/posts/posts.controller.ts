@@ -1,14 +1,11 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers } from '@nestjs/common';
 
 @Controller('posts')
 export class PostsController {
     @Get()
-    index(@Req() request){
-        console.log(
-            request.ip,
-            request.hostname,
-            request.method
-        )
+    index(@Headers('authorization') headers){
+        console.log(headers)
+
         return [
             {
                 'title':  'help'
