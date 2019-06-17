@@ -1,17 +1,15 @@
 import { Controller, Get, Req, Query, Headers, Param, Body, Post } from '@nestjs/common';
 import { CreatePostDto } from './post.dto';
+import { DemoService } from './providers/demo/demo.service';
 
 @Controller('posts')
 export class PostsController {
-    @Get()
-    index(@Headers('authorization') headers){
-        console.log(headers)
 
-        return [
-            {
-                'title':  'help'
-            }
-        ]
+    constructor(private readonly demoService: DemoService){}
+
+    @Get()
+    index(){
+        return this.demoService.findAll();
     }
 
     @Get(':id')
@@ -23,6 +21,6 @@ export class PostsController {
 
     @Post()
     Store(@Body() post: CreatePostDto){
-        console.log(post.title)
+       this.demoService.create(post);
     }
 }
