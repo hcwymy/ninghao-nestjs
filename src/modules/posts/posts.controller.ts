@@ -1,6 +1,7 @@
-import { Controller, Get, Req, Query, Headers, Param, Body, Post, HttpException, HttpStatus, ForbiddenException } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Body, Post, HttpException, HttpStatus, ForbiddenException, UseFilters } from '@nestjs/common';
 import { CreatePostDto } from './post.dto';
 import { DemoService } from './providers/demo/demo.service';
+import { DemoFilter } from 'src/core/filters/demo.filter';
 
 @Controller('posts')
 export class PostsController {
@@ -20,6 +21,7 @@ export class PostsController {
     }
 
     @Post()
+    @UseFilters(DemoFilter)
     Store(@Body() post: CreatePostDto){
         throw new ForbiddenException('没有权限！');
        // this.demoService.create(post);
