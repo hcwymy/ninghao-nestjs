@@ -5,8 +5,8 @@ import { DemoFilter } from '../../core/filters/demo.filter';
 import { DemoAuthGuard } from '../../core/guards/demo-auth.guard';
 
 @Controller('posts')
-//@UseFilters(DemoFilter)
-@UseGuards(DemoAuthGuard)
+// @UseFilters(DemoFilter)
+// @UseGuards(DemoAuthGuard)
 export class PostsController {
 
     constructor(private readonly demoService: DemoService){}
