@@ -7,6 +7,7 @@ import { Roles } from '../../core/decorators/roles.decorator';
 import { LoggingInterceptor } from '../../core/interceptors/logging.interceptor';
 import { TransformInterceptor } from '../../core/interceptors/transform.interceptor';
 import { ErrorsInterceptor } from '../../core/interceptors/errors.interceptor';
+import { User } from '../../core/decorators/user.decorator';
 
 @Controller('posts')
 // @UseFilters(DemoFilter)
@@ -39,7 +40,9 @@ export class PostsController {
     @UsePipes(ValidationPipe)
     // @SetMetadata('roles', ['member'])
     @Roles('member')
-    Store(@Body() post: CreatePostDto){
+    Store(@Body() post: CreatePostDto, @User() user){
+        console.log(user);       
+
         // throw new ForbiddenException('没有权限！');
         this.demoService.create(post);
     }
