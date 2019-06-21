@@ -25,4 +25,9 @@ export class PostService {
         const entity = await this.postRespository.findOne(id);
         return entity;
     }
+
+    async update(id: string, data){
+        const result = await this.postRespository.update(id, data);
+        return result;
+    }
 }
