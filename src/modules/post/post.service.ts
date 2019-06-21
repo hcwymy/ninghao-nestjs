@@ -20,4 +20,9 @@ export class PostService {
         const entities = await this.postRespository.find();
         return entities;
     }
+
+    async show(id: string){
+        const entity = await this.postRespository.findOne(id);
+        return entity;
+    }
 }
