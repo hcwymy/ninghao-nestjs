@@ -1,9 +1,25 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { truncate } from 'fs';
+import { PostModule } from './modules/post/post.module';
+
 
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql', 
+      host: 'localhost',
+      port: 3306,
+      username: 'nest',
+      password: 'nest',
+      database: 'nest',
+      synchronize: true,
+      entities: [__dirname + '/**/*.entity{.ts,.js}']
+    }),
+    PostModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
