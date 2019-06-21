@@ -30,4 +30,9 @@ export class PostService {
         const result = await this.postRespository.update(id, data);
         return result;
     }
+
+    async destroy(id: string){
+        const result = await this.postRespository.delete(id);
+        return result;
+    }
 }
