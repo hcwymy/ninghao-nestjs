@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { truncate } from 'fs';
 import { PostModule } from './modules/post/post.module';
+import { UserModule } from './modules/user/user.module';
 
 
 @Module({
@@ -18,7 +19,8 @@ import { PostModule } from './modules/post/post.module';
     //  synchronize: true,
     //  entities: [__dirname + '/**/*.entity{.ts,.js}']}
     ),
-    PostModule
+    PostModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],
