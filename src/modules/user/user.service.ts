@@ -51,4 +51,19 @@ export class UserService {
         entity.password =  newpassword;
         return await this.userRepository.save(entity);
     }
+
+    async findByname(name: string){
+        return await this.userRepository.findOne({name});
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
