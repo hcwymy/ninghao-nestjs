@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Exclusion, BeforeInsert } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Exclusion, BeforeInsert, BeforeUpdate } from "typeorm";
 import { Exclude } from 'class-transformer'
 import * as bcrypt from 'bcryptjs'
 
@@ -21,7 +21,8 @@ export class User {
     updated: Date;
 
     @BeforeInsert()
-    async hassPassword(){
+    @BeforeUpdate()
+    async hashPassword(){
         this.password = await bcrypt.hash(this.password, 12);
     }
 
