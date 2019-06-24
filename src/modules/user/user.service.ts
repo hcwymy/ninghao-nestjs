@@ -58,6 +58,11 @@ export class UserService {
         return await this.userRepository.findOne({name});
     }
 
+    async liked(id: number){
+        return this.userRepository
+            .findOne(id, {relations:['voted', 'voted.user']});
+    }
+
 
 
 

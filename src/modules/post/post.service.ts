@@ -18,6 +18,7 @@ export class PostService {
             ...entity,
             user
         });
+
         return entity;
     }
 
@@ -49,5 +50,21 @@ export class PostService {
             .relation(User, 'voted')
             .of(user)
             .add(id);
+    }
+
+    async unVote(id: number, user: User){
+        await this.postRespository
+            .createQueryBuilder()
+            .relation(User, 'voted')
+            .of(user)
+            .remove({ id });
+    }
+
+    async liked(id: number){
+        return await this.postRespository
+            .createQueryBuilder()
+            .relation(Post, 'liked')
+            .of(id)
+            .loadMany();
     }
 }
