@@ -1,7 +1,9 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, UseGuards, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Put, Delete, UseGuards, UseInterceptors, ClassSerializerInterceptor, ParseIntPipe } from '@nestjs/common';
 import { PostService } from './post.service';
 import { PostDto } from './post.dto';
 import { AuthGuard } from "@nestjs/passport";
+import { User as UserEntity } from '../user/user.entity';
+import { User } from '../../core/decorator/user.decorator';
 
 @Controller('posts')
 export class PostController {
@@ -11,8 +13,8 @@ export class PostController {
 
     @Post()
     @UseGuards(AuthGuard())
-    async store(@Body() data: PostDto){
-        return await this.postService.store(data);
+    async store(@Body() data: PostDto, @User() user: UserEntity){
+        return await this.postService.store(data, user);
     }
 
     @Get()
@@ -34,6 +36,12 @@ export class PostController {
     @Delete(':id')
     async destroy(@Param('id') id: string){
         return await this.postService.destroy(id);  
+    }
+
+    @Post(':id/vote')
+    @UseGuards(AuthGuard())
+    async vote(@Param('id', ParseIntPipe) id: number, @User() user: UserEntity){
+        return await this.postService.vote(id, user);
     }
 
 }

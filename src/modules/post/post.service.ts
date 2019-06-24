@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from './post.entity';
 import { Repository } from 'typeorm';
 import { PostDto } from './post.dto';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class PostService {
@@ -11,9 +12,12 @@ export class PostService {
         private readonly postRespository: Repository<Post>
     ){ }
 
-    async store(data: PostDto) {
+    async store(data: PostDto, user: User) {
         const entity = await this.postRespository.create(data);
-        await this.postRespository.save(entity);
+        await this.postRespository.save({
+            ...entity,
+            user
+        });
         return entity;
     }
 
@@ -37,5 +41,13 @@ export class PostService {
     async destroy(id: string){
         const result = await this.postRespository.delete(id);
         return result;
+    }
+
+    async vote(id: number, user: User){
+        await this.postRespository
+            .createQueryBuilder()
+            .relation(User, 'voted')
+            .of(user)
+            .add(id);
     }
 }
