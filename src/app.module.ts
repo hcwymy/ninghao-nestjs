@@ -6,6 +6,7 @@ import { truncate } from 'fs';
 import { PostModule } from './modules/post/post.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CategoryModule } from './modules/category/category.module';
 
 
 @Module({
@@ -22,7 +23,8 @@ import { AuthModule } from './modules/auth/auth.module';
     ),
     PostModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],
