@@ -83,8 +83,17 @@ export class PostService {
     }
 
     async update(id: string, data: Partial<PostDto>){
-        const result = await this.postRespository.update(id, data);
-        return result;
+        const { tags } = data;
+        delete data.tags;
+        await this.postRespository.update(id, data);
+        const entity = await this.postRespository
+            .findOne(id, {relations: ['category', 'tags']});
+        
+        if(tags){
+            entity.tags = await this.beforeTag(tags);
+        }
+
+        return await this.postRespository.save(entity);
     }
 
     async destroy(id: string){
