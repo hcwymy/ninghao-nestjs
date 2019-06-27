@@ -22,7 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy){
             new UnauthorizedException('没找到用户')
         }
 
-        console.log('entity:',entity);
 
         return entity;
     }
